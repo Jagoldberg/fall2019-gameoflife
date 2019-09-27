@@ -5,7 +5,7 @@ using namespace std;
 
 ClassicMode::ClassicMode(){
   //default constructor
-
+  
 }
 
 ClassicMode::~ClassicMode(){
