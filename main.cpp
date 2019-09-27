@@ -31,7 +31,13 @@ int main(int argc, char **argv) {
           for(int j = 0; j < c; ++j){
             //generate random number
             //if number < d, true, else false
-            //myGrid[i][j] =
+            double u;
+            u = (double)rand();
+            if(u < d){
+              thisGen[i][j] = true;
+            } else {
+              thisGen[i][j] = false;
+            }
           }
         }
       break;
