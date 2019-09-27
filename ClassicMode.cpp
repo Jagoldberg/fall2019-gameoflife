@@ -9,39 +9,129 @@ ClassicMode::ClassicMode(){
 }
 
 ClassicMode::~ClassicMode(){
-  delete [] myGrid;
+  delete [] grid;
 }
 
-int ClassicMode::neighbors(int row, int col){
+int ClassicMode::neighbors(int row, int col, int rowSize, int colSize){
   int n = 8;
-  if(row == 0){
+  if(row == 0){ //top row
     n -= 3;
+    if(col == 0){ // first column
+      n -= 2;
+      if(col < colSize && !grid[row][col + 1]){
+        --n;
+      }
+      if(row < rowSize && !grid[row + 1][col]){
+        --n;
+      }
+      if((row < rowSize && col <= colSize) && !grid[row + 1][col + 1]){
+        --n;
+      }
+    } else if(col == rowSize-1){ //last column
+      n -= 2;
+      if(!grid[row][col - 1]){
+        --n;
+      }
+      if(row < rowSize && !grid[row + 1][col]){
+        --n;
+      }
+      if(row < rowSize && !grid[row + 1][col - 1]){
+        --n;
+      }
+    } else {
+      if(!grid[row][col -1]){
+        --n;
+      }
+      if(col < colSize && !grid[row][col + 1]) {
+        --n;
+      }
+      if(row < rowSize && !grid[row + 1][col]) {
+        --n;
+      }
+      if(row < rowSize && !grid[row +1][col -1]){
+        --n;
+      }
+      if((row < rowSize && col < colSize) && !grid[row +1][col + 1]){
+        --n;
+      }
+    }
+  } else if (row == rowSize-1){ // last row
+    n-=3;
     if(col == 0){
       n -= 2;
-      if(!mygrid[0][1]){
+      if(!grid[row -1][col]){
         --n;
       }
-      if(!mygrid[1][0]){
+      if(col < colSize &&!grid[row -1][col +1]){
         --n;
       }
-      if(!mygrid[1][1]){
+      if(col < colSize && !grid[row][col +1]){
         --n;
       }
-    } else if(col == mygrid[row].length){
-      
+    } else if(col == colSize-1){
+      n -= 2;
+      if(!grid[row -1][col]){
+        --n;
+      }
+      if(!grid[row -1][col -1]){
+        --n;
+      }
+      if (!grid[row][col -1]){
+        --n;
+      }
+    } else {
+      if(!grid[row][col -1]){
+        --n;
+      }
+      if(col < colSize && !grid[row][col + 1]) {
+        --n;
+      }
+      if(!grid[row - 1][col]) {
+        --n;
+      }
+      if(!grid[row -1][col -1]){
+        --n;
+      }
+      if(col < colSize && !grid[row - 1][col + 1]){
+        --n;
+      }
+    }
+  } else {
+    if(col == 0){
+      n -= 3;
+      if(!grid[row -1][col]){
+        --n;
+      }
+      if(col < colSize && !grid[row-1][col+1]){
+        --n;
+      }
+      if(col < colSize && !grid[row][col +1]){
+        --n;
+      }
+      if((row < rowSize && col < colSize) && !grid[row+1][col +1]){
+        --n;
+      }
+      if(row < rowSize && !grid[row+1][col]){
+        --n;
+      }
+    } else if(col == colSize-1){
+      n -= 3;
+      if(!grid[row -1][col]){
+        --n;
+      }
+      if(!grid[row-1][col -1]){
+        --n;
+      }
+      if(!grid[row][col-1]){
+        --n;
+      }
+      if(row < rowSize && !grid[row +1][col -1]){
+        --n;
+      }
+      if(row < rowSize && !grid[row +1][col]){
+        --n;
+      }
     }
   }
   return n;
-}
-
-void ClassicMode::createGrid(int r, int c, double d, string l){
-  myGrid = new bool* [r];
-  for (int i = 0; i < r; ++i){
-    myGrid[i] = new bool[c];
-    for(int j = 0; j < c; ++j){
-      //generate random number
-      //if number < d, true, else false
-      //myGrid[i][j] =
-    }
-  }
 }

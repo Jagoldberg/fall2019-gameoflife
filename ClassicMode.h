@@ -8,10 +8,8 @@ public:
   ClassicMode(); //default constructor
   ~ClassicMode();//destructor
 
-  int neighbors(int row, int col);
-  void createGrid(int r, int c, double d, string l);
+  int neighbors(int row, int col, int rowSize, int colSize);
 
-  bool **myGrid;
-
+  bool **grid;
 
 };
