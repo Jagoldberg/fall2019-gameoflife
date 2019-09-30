@@ -8,8 +8,6 @@ public:
   ClassicMode(); //default constructor
   ~ClassicMode();//destructor
 
-  int neighbors(int row, int col, int rowSize, int colSize);
-
-  bool **grid;
+  int neighbors(int row, int col, int rowSize, int colSize, bool**grid);
 
 };

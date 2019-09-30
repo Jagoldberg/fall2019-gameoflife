@@ -5,14 +5,14 @@ using namespace std;
 
 ClassicMode::ClassicMode(){
   //default constructor
-  
+
 }
 
 ClassicMode::~ClassicMode(){
-  delete [] grid;
+  
 }
 
-int ClassicMode::neighbors(int row, int col, int rowSize, int colSize){
+int ClassicMode::neighbors(int row, int col, int rowSize, int colSize, bool **grid){
   int n = 8;
   if(row == 0){ //top row
     n -= 3;

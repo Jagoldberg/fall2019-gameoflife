@@ -87,33 +87,18 @@ int main(int argc, char **argv) {
       break;
     }
   }
+  bool **nextGen = thisGen;
   //Boundary Mode (Classic v. Mirror v. Donut)
+  int modeChoice;
   cout << "\n\tGame Mode: " << endl;
   cout << "\t1: Classic Mode: " << endl;
   cout << "\t2: Mirror Mode: " << endl;
   cout << "\t3: Donut Mode: " << endl;
   cout << "Please select an option: " << endl;
-  cin >> inputChoice;
-  switch(inputChoice){
-    case 1:
-    {
-      ClassicMode game;
-      break;
-    }/*
-    case 2:
-    {
-      MirrorMode game;
-      break;
-    }
-    case 3:
-    {
-      DonutMode game;
-      break;
-    }*/
-    default:
-      cout << "Invalid selection" << endl;
-      break;
-  }
+  cin >> modeChoice;
+  ClassicMode Cgame;
+  MirrorMode Mgame;
+  DonutMode Dgame;
 
   //Pause between generations
   //  "Enter" key or file output
@@ -138,9 +123,71 @@ int main(int argc, char **argv) {
     }
   }
   //Simulation
-
-
-  //Exit cases (world becomes empty/stabilizes)
-
+  //while simulation is unstable/not empty
+  for(int i = 0; i < r; ++i){
+    for(int j = 0; j < c; ++j){
+      switch(modeChoice){
+        case 1:
+          if(Cgame.neighbors(i,j,r,c,thisGen)<= 1){
+            nextGen[i][j] = false;
+          } else if((Cgame.neighbors(i,j,r,c,thisGen) == 2) && (thisGen[i][j])){
+            nextGen[i][j] = true;
+          } else if(Cgame.neighbors(i,j,r,c,thisGen)== 3){
+            nextGen[i][j] = true;
+          } else if((Cgame.neighbors(i,j,r,c,thisGen)>= 4)){
+            nextGen[i][j] = false;
+          }
+        break;
+        case 2:
+          if(Mgame.neighbors(i,j,r,c,thisGen)<= 1){
+            nextGen[i][j] = false;
+          } else if((Mgame.neighbors(i,j,r,c,thisGen) == 2) && (thisGen[i][j])){
+            nextGen[i][j] = true;
+          } else if(Mgame.neighbors(i,j,r,c,thisGen)== 3){
+            nextGen[i][j] = true;
+          } else if((Mgame.neighbors(i,j,r,c,thisGen)>= 4)){
+            nextGen[i][j] = false;
+          }
+        break;
+        case 3:
+          if(Dgame.neighbors(i,j,r,c,thisGen)<= 1){
+            nextGen[i][j] = false;
+          } else if((Dgame.neighbors(i,j,r,c,thisGen) == 2) && (thisGen[i][j])){
+            nextGen[i][j] = true;
+          } else if(Dgame.neighbors(i,j,r,c,thisGen)== 3){
+            nextGen[i][j] = true;
+          } else if((Dgame.neighbors(i,j,r,c,thisGen)>= 4)){
+            nextGen[i][j] = false;
+          }
+        break;
+      }
+    }
+  }
+  if (pauseChoice){
+    for(int i = 0; i < r; ++i){
+      for (int j = 0; j < c; ++i){
+        if(nextGen[i][j]){
+          cout << "X";
+        } else {
+          cout << "-";
+        }
+      }
+      cout << endl;
+    }
+  } else {
+    ofstream Result(OutFile);
+    if(Result.is_open()){
+      for(int i = 0; i < r; ++i){
+        for (int j = 0; j < c; ++i){
+          if(nextGen[i][j]){
+            Result << "X";
+          } else {
+            Result << "-";
+          }
+        }
+        Result << endl;
+      }
+    }
+  }
   return 0;
 }
