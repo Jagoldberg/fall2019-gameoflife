@@ -15,35 +15,38 @@ MirrorMode::~MirrorMode(){
 int MirrorMode::neighbors(int row, int col, int rowSize, int colSize, bool **grid){
   int n = 8;
   if(row == 0){ //top row
-    n -= 3;
     if(col == 0){ // first column
-      n -= 2;
       if(col < colSize && !grid[row][col + 1]){
-        --n;
+        n -= 2;
       }
       if(row < rowSize && !grid[row + 1][col]){
-        --n;
+        n-=2;
       }
       if((row < rowSize && col <= colSize) && !grid[row + 1][col + 1]){
         --n;
       }
-    } else if(col == rowSize-1){ //last column
-      n -= 2;
+      if(!grid[row][col]){
+        n -= 3;
+      }
+    } else if(col == colSize-1){ //last column
       if(!grid[row][col - 1]){
-        --n;
+        n-=2;
       }
       if(row < rowSize && !grid[row + 1][col]){
-        --n;
+        n-=2;
       }
       if(row < rowSize && !grid[row + 1][col - 1]){
         --n;
       }
+      if(!grid[row][col]){
+        n-=3;
+      }
     } else {
       if(!grid[row][col -1]){
-        --n;
+        n-=2;
       }
       if(col < colSize && !grid[row][col + 1]) {
-        --n;
+        n-=2;
       }
       if(row < rowSize && !grid[row + 1][col]) {
         --n;
@@ -54,37 +57,43 @@ int MirrorMode::neighbors(int row, int col, int rowSize, int colSize, bool **gri
       if((row < rowSize && col < colSize) && !grid[row +1][col + 1]){
         --n;
       }
+      if(!grid[row][col]){
+        --n;
+      }
     }
   } else if (row == rowSize-1){ // last row
-    n-=3;
     if(col == 0){
-      n -= 2;
       if(!grid[row -1][col]){
-        --n;
+        n-=2;
       }
       if(col < colSize &&!grid[row -1][col +1]){
         --n;
       }
       if(col < colSize && !grid[row][col +1]){
-        --n;
+        n-=2;
+      }
+      if(!grid[row][col]){
+        n-=3;
       }
     } else if(col == colSize-1){
-      n -= 2;
       if(!grid[row -1][col]){
-        --n;
+        n-=2;
       }
       if(!grid[row -1][col -1]){
         --n;
       }
       if (!grid[row][col -1]){
-        --n;
+        n-=2;
+      }
+      if(!grid[row][col]){
+        n-=3;
       }
     } else {
       if(!grid[row][col -1]){
-        --n;
+        n-=2;
       }
       if(col < colSize && !grid[row][col + 1]) {
-        --n;
+        n-=2;
       }
       if(!grid[row - 1][col]) {
         --n;
@@ -95,12 +104,14 @@ int MirrorMode::neighbors(int row, int col, int rowSize, int colSize, bool **gri
       if(col < colSize && !grid[row - 1][col + 1]){
         --n;
       }
+      if(!grid[row][col]){
+        --n;
+      }
     }
   } else {
     if(col == 0){
-      n -= 3;
       if(!grid[row -1][col]){
-        --n;
+        n-=2;
       }
       if(col < colSize && !grid[row-1][col+1]){
         --n;
@@ -112,12 +123,14 @@ int MirrorMode::neighbors(int row, int col, int rowSize, int colSize, bool **gri
         --n;
       }
       if(row < rowSize && !grid[row+1][col]){
+        n-=2;
+      }
+      if(!grid[row][col]){
         --n;
       }
     } else if(col == colSize-1){
-      n -= 3;
       if(!grid[row -1][col]){
-        --n;
+        n-=2;
       }
       if(!grid[row-1][col -1]){
         --n;
@@ -129,6 +142,9 @@ int MirrorMode::neighbors(int row, int col, int rowSize, int colSize, bool **gri
         --n;
       }
       if(row < rowSize && !grid[row +1][col]){
+        n-=2;
+      }
+      if(!grid[row][col]){
         --n;
       }
     }

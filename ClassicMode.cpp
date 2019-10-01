@@ -9,7 +9,7 @@ ClassicMode::ClassicMode(){
 }
 
 ClassicMode::~ClassicMode(){
-  
+
 }
 
 int ClassicMode::neighbors(int row, int col, int rowSize, int colSize, bool **grid){
@@ -27,7 +27,7 @@ int ClassicMode::neighbors(int row, int col, int rowSize, int colSize, bool **gr
       if((row < rowSize && col <= colSize) && !grid[row + 1][col + 1]){
         --n;
       }
-    } else if(col == rowSize-1){ //last column
+    } else if(col == colSize-1){ //last column
       n -= 2;
       if(!grid[row][col - 1]){
         --n;
